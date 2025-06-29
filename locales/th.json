@@ -1,0 +1,93 @@
+{
+  "button": {
+    "add": "เพิ่ม",
+    "confirm": "ยืนยัน",
+    "save": "บันทึก",
+    "create": "สร้าง",
+    "prev": "ย้อน",
+    "next": "ถัดไป",
+    "back": "กลับ",
+    "cancel": "ยกเลิก",
+    "close": "ปิด"
+  },
+  "login": {
+    "title": "เข้าสู่ระบบ",
+    "email_placeholder": "อีเมลหรือชื่อผู้ใช้",
+    "password_placeholder": "รหัสผ่าน",
+    "forgot_password": "ลืมรหัสผ่าน?",
+    "login_button": "เข้าสู่ระบบ",
+    "signup_prompt": "ยังไม่มีบัญชี?",
+    "google_signin": "ลงชื่อด้วย Google"
+  },
+  "signup": {
+    "title": "สมัครสมาชิก",
+    "username_placeholder": "ชื่อผู้ใช้งาน",
+    "firstname_placeholder": "ชื่อ",
+    "lastname_placeholder": "นามสกุล",
+    "email_placeholder": "อีเมล",
+    "password_placeholder": "รหัสผ่าน",
+    "confirm_password_placeholder": "ยืนยันรหัสผ่าน",
+    "signup_button": "สมัครสมาชิก",
+    "signin_prompt": "เป็นสมาชิกอยู่แล้ว?"
+  },
+  "forgot": {
+    "title": "ลืมรหัสผ่าน",
+    "instruction": "ลืมรหัสผ่าน?",
+    "email_placeholder": "อีเมล",
+    "forgot_promt": "เราจะส่งรหัสยืนยันไปที่อีเมลของคุณ",
+    "forgot_button": "สมัครสมาชิก",
+    "back_button": "กลับ"
+  },
+  "dashboard": {
+    "analytics": {
+      "title": "มุมมองการวิเคราะห์",
+      "box_total_appointments": "ยอดจอง",
+      "box_total_patient": "ผู้ป่วย",
+      "box_confirm": "ยืนยัน",
+      "box_cancel": "ยกเลิก",
+      "card_income": "รายได้",
+      "card_treatment_type": "ประเภทการรักษา",
+      "card_expense": "ค่าใช้จ่าย",
+      "card_recent_opd": "OPD ล่าสุด",
+      "card_history_transaction": "ประวัติ"
+    }
+  },
+  "manage": {
+    "stock": {
+      "title": "สต็อก",
+      "box_product_code": "รหัสสินค้า",
+      "box_product_brand": "ยี่ห้อ",
+      "box_product_remain": "คงเหลือ",
+      "form": {
+        "add": {
+          "title": "เพิ่มสต็อก",
+          "upload_photo": "อัปโหลดรูปภาพ",
+          "product_name": "ชื่อสินค้า",
+          "product_type": "ประเภท",
+          "product_code": "รหัสสินค้า",
+          "product_brand": "ยี่ห้อ",
+          "remain": "จำนวน"
+        },
+        "adjust": {
+          "title": "ปรับสต็อก",
+          "quantity": "จำนวน"
+        }
+      }
+    },
+    "admin": {
+      "form": {
+        "add": {
+          "title": "เพิ่มแอดมิน",
+          "upload_photo": "อัปโหลดรูปภาพ",
+          "user_name": "ชื่อผู้ใช้งาน",
+          "user_role": "สิทธิ์"
+        }
+      }
+    },
+    "patient": {
+      "form": {
+        "branch": "สาขา"
+      }
+    }
+  }
+}

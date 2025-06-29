@@ -1,0 +1,88 @@
+{
+  "button": {
+    "add": "Add",
+    "confirm": "Confirm",
+    "save": "Save",
+    "create": "Create",
+    "prev": "Prev",
+    "next": "Next",
+    "back": "Back",
+    "cancel": "Cancel",
+    "close": "Close"
+  },
+  "login": {
+    "title": "Login",
+    "email_placeholder": "Email Address / Username",
+    "password_placeholder": "Password",
+    "forgot_password": "Forgot Password?",
+    "login_button": "Log In",
+    "signup_prompt": "Don’t have an account?",
+    "google_signin": "Sign in with Google"
+  },
+  "signup": {
+    "title": "Sign Up",
+    "username_placeholder": "Username",
+    "firstname_placeholder": "Name",
+    "lastname_placeholder": "Surname",
+    "email_placeholder": "Email Address",
+    "password_placeholder": "Password",
+    "confirm_password_placeholder": "Confirm Password",
+    "signup_button": "Sign Up",
+    "signin_prompt": "Already have an account?"
+  },
+  "forgot": {
+    "title": "Forgot Password",
+    "instruction": "Forgot Password right?",
+    "email_placeholder": "Email Address",
+    "forgot_promt": "We will send the verification code to your E-mail.",
+    "forgot_button": "Send",
+    "back_button": "Back"
+  },
+  "dashboard": {
+    "analytics": {
+      "title": "Analytics Overview",
+      "box_total_appointments": "Total Appointments",
+      "box_total_patient": "Total Patient",
+      "box_confirm": "Confirm",
+      "box_cancel": "Cancel",
+      "card_income": "Income",
+      "card_treatment_type": "Treatment Type",
+      "card_expense": "Expense",
+      "card_recent_opd": "Recent OPD",
+      "card_history_transaction": "History Transactions"
+    }
+  },
+  "manage": {
+    "stock": {
+      "title": "Stock",
+      "box_product_code": "Product Code",
+      "box_product_brand": "Brand",
+      "box_product_remain": "Remaining",
+      "form": {
+        "add": {
+          "title": "Add Stock",
+          "upload_photo": "Upload Photo",
+          "product_name": "Name of Product",
+          "product_type": "Type",
+          "product_code": "Product Code",
+          "product_brand": "Brand",
+          "remain": "Remain"
+        },
+        "adjust": {
+          "title": "Adjust Stock",
+          "quantity": "Quantity"
+        }
+      }
+    },
+    "admin": {
+      "form": {
+        "add": {
+          "title": "Add Admin",
+          "upload_photo": "Upload Photo",
+          "user_name": "User Name",
+          "user_role": "Role"
+        }
+      }
+    }
+  }
+}
