@@ -1,172 +1,3 @@
-// import { ref, computed } from 'vue';
-// import { defineStore } from 'pinia';
-// import { authService } from '~/services/auth';
-// import type { User, LoginCredentials, RegisterCredentials, AuthResponse } from '~/types/auth';
-
-// export const useAuthStore = defineStore('auth', () => {
-//   // State
-//   const user = ref<User | null>(null);
-//   const isAuthenticated = ref(false);
-
-//   // Cookie options
-//   const cookieOptions = {
-//     maxAge: 60 * 60 * 24 * 7, // 7 days
-//     path: '/',
-//     secure: process.env.NODE_ENV === 'production',
-//     sameSite: 'strict' as const
-//   };
-
-//   // Actions
-//   async function login(credentials: LoginCredentials) {
-//     try {
-//       const response = await authService.login(credentials);
-//       setAuthData(response);
-//       return response;
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
-
-//   async function register(credentials: RegisterCredentials) {
-//     try {
-//       const response = await authService.register(credentials);
-//       setAuthData(response);
-//       return response;
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
-
-//   async function forgotPassword(email: string) {
-//     try {
-//       await authService.forgotPassword(email);
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
-
-//   async function logout() {
-//     try {
-//       await authService.logout();
-//       clearAuthData();
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
-
-//   async function refreshAuthToken() {
-//     const refreshToken = useCookie('refresh_token').value;
-//     if (!refreshToken) throw new Error('No refresh token available');
-    
-//     try {
-//       const response = await authService.refreshToken(refreshToken);
-//       setAuthData(response);
-//       return response;
-//     } catch (error) {
-//       clearAuthData();
-//       throw error;
-//     }
-//   }
-
-//   function setAuthData(response: AuthResponse) {
-//     user.value = response.data.user;
-//     isAuthenticated.value = true;
-    
-//     // Store auth token in cookies
-//     const authToken = useCookie('auth_token', cookieOptions);
-//     authToken.value = response.token;
-    
-//     const refreshTokenCookie = useCookie('refresh_token', cookieOptions);
-//     refreshTokenCookie.value = response.refreshToken;
-    
-//     // Store user info in cookies
-//     const userCookie = useCookie('user_id', cookieOptions);
-//     userCookie.value = response.data.user.id;
-    
-//     const usernameCookie = useCookie('username', cookieOptions);
-//     usernameCookie.value = response.data.user.username;
-    
-//     const emailCookie = useCookie('email', cookieOptions);
-//     emailCookie.value = response.data.user.email;
-    
-//     const firstNameCookie = useCookie('firstName', cookieOptions);
-//     firstNameCookie.value = response.data.user.firstName;
-    
-//     const lastNameCookie = useCookie('lastName', cookieOptions);
-//     lastNameCookie.value = response.data.user.lastName;
-    
-//     const roleCookie = useCookie('role', cookieOptions);
-//     roleCookie.value = response.data.user.roles;
-    
-//     const clinicIdCookie = useCookie('clinic_id', cookieOptions);
-//     clinicIdCookie.value = response.data.user.clinicId;
-//   }
-
-//   function clearAuthData() {
-//     user.value = null;
-//     isAuthenticated.value = false;
-    
-//     // Clear all cookies
-//     const cookiesToClear = [
-//       'auth_token', 'refresh_token', 'user_id', 'username', 
-//       'email', 'firstName', 'lastName', 'role', 'clinic_id'
-//     ];
-    
-//     cookiesToClear.forEach(name => {
-//       const cookie = useCookie(name);
-//       cookie.value = null;
-//     });
-//   }
-
-//   // Initialize user from cookie on app load
-//   function initAuth() {
-//     const authToken = useCookie('auth_token').value;
-//     const userId = useCookie('user_id').value;
-    
-//     if (authToken && userId) {
-//       isAuthenticated.value = true;
-      
-//       // Reconstruct user object from cookies
-//       user.value = {
-//         id: userId,
-//         username: useCookie('username').value || '',
-//         email: useCookie('email').value || '',
-//         firstName: useCookie('firstName').value || '',
-//         lastName: useCookie('lastName').value || '',
-//         roles: useCookie('role').value || '',
-//         clinicId: useCookie('clinic_id').value || '',
-//         isActive: true,
-//         status: 'active',
-//         lastLogin: '',
-//         createdAt: '',
-//         updatedAt: '',
-//       };
-//     }
-//   }
-
-//   // Getters
-//   const getUser = computed(() => user.value);
-//   const isLoggedIn = computed(() => isAuthenticated.value);
-
-//   // Initialize on store creation
-//   initAuth();
-
-//   return {
-//     user,
-//     isAuthenticated,
-//     login,
-//     register,
-//     forgotPassword,
-//     logout,
-//     refreshAuthToken,
-//     setAuthData,
-//     clearAuthData,
-//     initAuth,
-//     getUser,
-//     isLoggedIn,
-//   };
-// });
-
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { authService } from '~/services/auth';
@@ -216,6 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function logout() {
+    const localePath = useLocalePath()
     try {
       await authService.logout();
     } catch (error) {
@@ -223,7 +55,8 @@ export const useAuthStore = defineStore('auth', () => {
       console.error('Logout API error:', error);
     } finally {
       clearAuthData();
-      await navigateTo('/login');
+      // await navigateTo('/login');
+      await navigateTo(localePath('login'), { replace: true });
     }
   }
 
@@ -351,6 +184,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function handleAuthExpired() {
+    const localePath = useLocalePath();
     console.warn('Authentication expired, redirecting to login...');
     clearAuthData();
     
@@ -359,8 +193,8 @@ export const useAuthStore = defineStore('auth', () => {
       console.error('Your session has expired. Please log in again.');
     }
     
-    // Redirect to login
-    navigateTo('/login');
+    // navigateTo('/login');
+    navigateTo(localePath('login'), { replace: true });
   }
 
   // Initialize user from cookie on app load

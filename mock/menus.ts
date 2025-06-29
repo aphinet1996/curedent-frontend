@@ -39,17 +39,23 @@ const menus: MenuItem[] = [
     ]
   },
   {
+    "label": "Chat",
+    "icon": "fluent:chat-28-regular",
+    "iconHeader": "fluent:chat-28-filled",
+    "to": "/chat"
+  },
+  {
+    "label": "Report",
+    "icon": "mdi:report-box-outline",
+    "iconHeader": "mdi:report-box",
+    "to": "/report"
+  },
+  {
     "label": "Calendar",
     "icon": "octicon:calendar-24",
-    "iconHeader": "ant-design:calendar-filled",
+    "iconHeader": "mingcute:calendar-fill",
     "to": "/calendar"
   },
-  // {
-  //   "label": "Chat",
-  //   "icon": "fluent:chat-28-regular",
-  //   "iconHeader": "fluent:chat-28-filled",
-  //   "to": "/chat"
-  // },
   {
     "label": "OPD",
     "icon": "carbon:document",
@@ -57,10 +63,16 @@ const menus: MenuItem[] = [
     "to": "/opd"
   },
   {
+    "label": "Manage",
+    "icon": "material-symbols:folder-managed-outline",
+    "iconHeader": "material-symbols:folder-managed",
+    "to": "/manage"
+  },
+  {
     "label": "Settings",
     "icon": "ep:setting",
     "iconHeader": "material-symbols:settings-rounded",
-    "to": "/manage"
+    "to": "/setting"
   },
   {
     "label": "Log Out",

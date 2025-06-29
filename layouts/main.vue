@@ -5,7 +5,8 @@ import { Icon } from '@iconify/vue'
 import Sidebar from '~/components/Sidebar.vue'
 import Search from '~/components/Search.vue'
 import LanguageSwitch from '~/components/DropdownLanguage.vue'
-import menuItems from '~/mock/menus.json';
+// import menuItems from '~/mock/menus.json';
+import menuItems from '~/mock/menus'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useChatStore } from '~/stores/chat'

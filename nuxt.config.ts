@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
@@ -67,9 +66,9 @@ export default defineNuxtConfig({
         name: 'English'
       }
     ],
-    defaultLocale: 'th',
     // strategy: 'prefix_except_default',
     strategy: 'prefix',
+    defaultLocale: 'th',
     restructureDir: false,
     detectBrowserLanguage: {
       useCookie: true,
