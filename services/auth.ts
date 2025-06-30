@@ -1,20 +1,20 @@
 import type { LoginCredentials, RegisterCredentials, AuthResponse } from '~/types/auth';
 
-// Base API URL
-const BASE_URL = process.env.NUXT_PUBLIC_API_BASE_URL;
-
-/**
- * Custom fetch function with default options and error handling
- */
 async function apiFetch<T>(url: string, options: any = {}, retries = 3): Promise<T> {
   const token = useCookie('auth_token').value;
   
-  // Don't check token for auth endpoints
   const authEndpoints = ['/auth/login', '/auth/register', '/auth/forgot-password', '/auth/refresh-token'];
   const isAuthEndpoint = authEndpoints.some(endpoint => url.includes(endpoint));
   
   if (!token && !isAuthEndpoint) {
     throw new Error('Authentication required');
+  }
+
+  const config = useRuntimeConfig();
+  const baseUrl = config.public.apiBaseUrl;
+  
+  if (!baseUrl) {
+    throw new Error('API Base URL is not configured. Please check your environment variables.');
   }
   
   const defaultOptions = {
@@ -36,7 +36,7 @@ async function apiFetch<T>(url: string, options: any = {}, retries = 3): Promise
   
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      return await $fetch<T>(`${BASE_URL}${url}`, mergedOptions);
+      return await $fetch<T>(`${baseUrl}${url}`, mergedOptions);
     } catch (error: any) {
       console.error(`API Error (${url}):`, error);
       
