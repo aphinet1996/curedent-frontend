@@ -16,7 +16,7 @@ export interface ApiResponse<T> {
 }
 
 // Base API URL
-const BASE_URL = process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:3002/api/v1';
+const BASE_URL = process.env.NUXT_PUBLIC_API_BASE_URL;
 
 /**
  * Custom fetch function with default options and error handling

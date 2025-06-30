@@ -264,7 +264,7 @@ export const useAuthStore = defineStore('auth', () => {
     
     try {
       // Try to make a simple API call to check if token is still valid
-      await $fetch(`${process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:3002/api/v1'}/auth/profile`, {
+      await $fetch(`${process.env.NUXT_PUBLIC_API_BASE_URL}/auth/profile`, {
         headers: {
           'Authorization': `Bearer ${useCookie('auth_token').value}`
         }

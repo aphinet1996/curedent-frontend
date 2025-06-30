@@ -7,6 +7,7 @@ import { useRouter } from 'nuxt/app';
 
 const authStore = useAuthStore();
 const router = useRouter();
+const localePath = useLocalePath();
 const showPassword = ref(false);
 const loading = ref(false);
 const error = ref<string | null>(null);
@@ -25,7 +26,7 @@ const handleLogin = async () => {
   error.value = null;
   try {
     await authStore.login(credentials.value);
-    router.push('/dashboard');
+    await router.push(localePath('dashboard'));
   } catch (err: any) {
     error.value = err.response?.data?.message || 'Login failed';
   } finally {
@@ -34,9 +35,10 @@ const handleLogin = async () => {
 };
 
 const handleGoogleSignIn = () => {
-  console.log('Google Sign-In clicked');
+  // router.push(localePath('dashboard'))
 };
 </script>
+
 <template>
   <div>
     <form @submit.prevent="handleLogin">
@@ -79,7 +81,7 @@ const handleGoogleSignIn = () => {
       </div>
 
       <div class="flex justify-end mb-6">
-        <NuxtLink to="/forgot" class="text-gray-400 hover:underline">
+        <NuxtLink :to="localePath('forgot')" class="text-gray-400 hover:underline">
           {{ $t('login.forgot_password') }}
         </NuxtLink>
       </div>
@@ -89,13 +91,13 @@ const handleGoogleSignIn = () => {
         :disabled="loading"
         class="w-full bg-blue-600 text-white py-3 rounded mb-4 hover:bg-blue-700 transition-colors disabled:opacity-50"
       >
-        {{ loading ? $t('login.login_button') : $t('login.login_button') }}
+        {{ loading ? $t('login.logging_in') : $t('login.login_button') }}
       </button>
     </form>
 
     <div class="flex flex-row justify-center mb-4">
       <span>{{ $t('login.signup_prompt') }}</span>
-      <NuxtLink to="/signup" class="ml-2">
+      <NuxtLink :to="localePath('signup')" class="ml-2">
         <span class="text-blue-500">{{ $t('signup.signup_button') }}</span>
       </NuxtLink>
     </div>
