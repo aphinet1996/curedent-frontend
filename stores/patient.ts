@@ -9,7 +9,8 @@ import type {
   Pagination,
   MultilingualOption,
   Language,
-  OptionSelection
+  OptionSelection,
+  CreatePatientOptionRequest
 } from '~/types/patient';
 
 // Interface for API response patient (matching your API structure)
@@ -90,6 +91,23 @@ interface ApiSinglePatientResponse {
   data: {
     patient: ApiPatient;
   };
+}
+
+// Type for display options
+interface DisplayOption {
+  value: string;
+}
+
+interface DisplayOptions {
+  nationalities: DisplayOption[];
+  titlePrefixes: DisplayOption[];
+  genders: DisplayOption[];
+  patientTypes: DisplayOption[];
+  bloodGroups: DisplayOption[];
+  occupations: DisplayOption[];
+  medicalRights: DisplayOption[];
+  maritalStatuses: DisplayOption[];
+  referralSources: DisplayOption[];
 }
 
 export const usePatientStore = defineStore('patient', () => {
@@ -406,7 +424,57 @@ export const usePatientStore = defineStore('patient', () => {
       isLoadingOptions.value = false;
     }
   }
-  
+
+  async function createPatientOption(category: PatientOptionCategory, value: MultilingualOption, lang?: string) {
+    try {
+      // Create the proper request object structure
+      const createRequest: CreatePatientOptionRequest = {
+        value: value
+      };
+      
+      const response = await patientService.createPatientOption(category, createRequest, lang || currentLanguage.value);
+      
+      if (response.status === 'success') {
+        // Add new option to local state
+        switch (category) {
+          case 'nationality':
+            options.value.nationalities.push(value);
+            break;
+          case 'titlePrefix':
+            options.value.titlePrefixes.push(value);
+            break;
+          case 'gender':
+            options.value.genders.push(value);
+            break;
+          case 'patientType':
+            options.value.patientTypes.push(value);
+            break;
+          case 'bloodGroup':
+            options.value.bloodGroups.push(value);
+            break;
+          case 'occupation':
+            options.value.occupations.push(value);
+            break;
+          case 'medicalRight':
+            options.value.medicalRights.push(value);
+            break;
+          case 'maritalStatus':
+            options.value.maritalStatuses.push(value);
+            break;
+          case 'referralSource':
+            options.value.referralSources.push(value);
+            break;
+        }
+        
+        return true;
+      }
+      
+      return false;
+    } catch (error: any) {
+      console.error(`Error creating ${category} option:`, error);
+      return false;
+    }
+  }
 
   // Utility functions
   function searchPatients(searchTerm: string) {
@@ -435,10 +503,38 @@ export const usePatientStore = defineStore('patient', () => {
     currentPatient.value = null;
   }
 
+  // Helper function to convert multilingual options to display format
+  function convertToDisplayOptions(multilingualOptions: MultilingualOption[]): DisplayOption[] {
+    return multilingualOptions.map(option => ({
+      value: currentLanguage.value === 'th' ? option.th : option.en
+    }));
+  }
+
+  // Helper function to find multilingual option by display value
+  function findOptionByDisplayValue(multilingualOptions: MultilingualOption[], displayValue: string): MultilingualOption | null {
+    return multilingualOptions.find(option => 
+      option.th === displayValue || option.en === displayValue
+    ) || null;
+  }
+
   // Getters
   const getPatients = computed(() => patients.value);
   const getCurrentPatient = computed(() => currentPatient.value);
   const getPatientOptions = computed(() => options.value);
+  
+  // New getter for display options that component needs
+  const getDisplayOptions = computed((): DisplayOptions => ({
+    nationalities: convertToDisplayOptions(options.value.nationalities),
+    titlePrefixes: convertToDisplayOptions(options.value.titlePrefixes),
+    genders: convertToDisplayOptions(options.value.genders),
+    patientTypes: convertToDisplayOptions(options.value.patientTypes),
+    bloodGroups: convertToDisplayOptions(options.value.bloodGroups),
+    occupations: convertToDisplayOptions(options.value.occupations),
+    medicalRights: convertToDisplayOptions(options.value.medicalRights),
+    maritalStatuses: convertToDisplayOptions(options.value.maritalStatuses),
+    referralSources: convertToDisplayOptions(options.value.referralSources)
+  }));
+
   const getPatientById = computed(() => (id: string) => patients.value.find(patient => patient.id === id));
   const getActivePatients = computed(() => patients.value.filter(patient => patient.isActive));
   const getLoading = computed(() => isLoading.value);
@@ -466,16 +562,19 @@ export const usePatientStore = defineStore('patient', () => {
     deletePatient,
     fetchPatientOptions,
     fetchAllPatientOptions,
+    createPatientOption,
     searchPatients,
     getPatientsByBranch,
     clearError,
     clearCurrentPatient,
     setLanguageAndRefetch,
+    findOptionByDisplayValue,
     
     // Getters
     getPatients,
     getCurrentPatient,
     getPatientOptions,
+    getDisplayOptions, // เพิ่ม getter ใหม่
     getPatientById,
     getActivePatients,
     getLoading,

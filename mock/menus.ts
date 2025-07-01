@@ -38,12 +38,12 @@ const menus: MenuItem[] = [
       }
     ]
   },
-  {
-    "label": "Chat",
-    "icon": "fluent:chat-28-regular",
-    "iconHeader": "fluent:chat-28-filled",
-    "to": "/chat"
-  },
+  // {
+  //   "label": "Chat",
+  //   "icon": "fluent:chat-28-regular",
+  //   "iconHeader": "fluent:chat-28-filled",
+  //   "to": "/chat"
+  // },
   {
     "label": "Report",
     "icon": "mdi:report-box-outline",

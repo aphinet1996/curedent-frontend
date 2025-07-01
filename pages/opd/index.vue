@@ -5,8 +5,13 @@ definePageMeta({
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import CardPatientOPD from '~/components/opd/TablePatientOPD.vue';
+import FormAddNewPatient from '~/components/chat/FormAddNewPatient.vue';
 
 const showForm = ref(false)
+
+const handleSubmitForm = (patient: any) => {
+  showForm.value = false
+}
 </script>
 
 <template>
@@ -21,5 +26,7 @@ const showForm = ref(false)
     <div>
       <CardPatientOPD />
     </div>
+
+    <FormAddNewPatient :show="showForm" @close="showForm= false" @submit="handleSubmitForm" />
   </NuxtLayout>
 </template>
