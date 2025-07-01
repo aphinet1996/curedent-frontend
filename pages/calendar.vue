@@ -21,11 +21,9 @@ onMounted(async () => {
   await calendarStore.fetchAppointments()
 })
 
-function handleCreated(appointment: { date: string }) {
-  // เมื่อสร้างเสร็จ ให้เลื่อนไปที่วันของนัดใหม่
+async function handleCreated(appointment: { date: string }) {
   calendarStore.setSelectedDate(appointment.date)
-  // ถ้าต้องการรีโหลดข้อมูลใหม่ ให้เรียก fetchAppointments() อีกครั้ง
-  // await calendarStore.fetchAppointments()
+  await calendarStore.fetchAppointments()
 }
 </script>
 

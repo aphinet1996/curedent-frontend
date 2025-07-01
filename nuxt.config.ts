@@ -5,8 +5,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:3001',
-      // socketUrl: process.env.NUXT_PUBLIC_SOCKET_URL || 'http://localhost:3001',
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
+      // socketUrl: process.env.NUXT_PUBLIC_SOCKET_URL,
     }
   },
   css: ['~/assets/css/input.css'],
