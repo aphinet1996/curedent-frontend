@@ -17,7 +17,8 @@
     "forgot_password": "ลืมรหัสผ่าน?",
     "login_button": "เข้าสู่ระบบ",
     "signup_prompt": "ยังไม่มีบัญชี?",
-    "google_signin": "ลงชื่อด้วย Google"
+    "google_signin": "ลงชื่อด้วย Google",
+    "logging_in": "กำลังเข้าสู่ระบบ"
   },
   "signup": {
     "title": "สมัครสมาชิก",

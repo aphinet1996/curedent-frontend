@@ -1,30 +1,21 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { Icon } from '@iconify/vue'
-// import menuItems from '~/mock/menus.json'
-import menuItems from '~/mock/menus'
-import { useRoute } from 'vue-router'
+import menus from '~/mock/menus'
+import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '~/stores/auth'
 
 const openSubmenus = ref<string[]>([])
 const route = useRoute()
+const router = useRouter()
 const authStore = useAuthStore()
-const { locale, locales } = useI18n()
+const { locale } = useI18n()
 const localePath = useLocalePath()
 
-// const pathWithoutLocale = computed(() => {
-//   const regex = new RegExp(`^/${locale.value}(/|$)`)
-//   return route.path.replace(regex, '/')
-// })
-
 const pathWithoutLocale = computed(() => {
-  if (!route.path || route.path === '/') return '/'
-  
-  const localePrefixes = locales.value.map((l: any) => l.code).join('|')
-  const regex = new RegExp(`^/(${localePrefixes})(/|$)`, 'i')
-  const result = route.path.replace(regex, '/').replace('//', '/')
-  return result || '/'
+  const regex = new RegExp(`^/${locale.value}(/|$)`)
+  return route.path.replace(regex, '/')
 })
 
 function toggleSub(label: string) {
@@ -39,20 +30,9 @@ function isOpen(label: string) {
   return openSubmenus.value.includes(label)
 }
 
-// function isActiveRoute(path: string | undefined) {
-//   if (!path) return false
-//   return pathWithoutLocale.value === path || pathWithoutLocale.value.startsWith(path + '/')
-// }
-
 function isActiveRoute(path: string | undefined) {
   if (!path) return false
-  
-  if (path.startsWith(`/${locale.value}/`)) {
-    return route.path === path || route.path.startsWith(path + '/')
-  }
-  
-  const localizedPath = localePath(path)
-  return route.path === localizedPath || route.path.startsWith(localizedPath + '/')
+  return pathWithoutLocale.value === path || pathWithoutLocale.value.startsWith(path + '/')
 }
 
 function shouldShowSubmenu(item: any) {
@@ -64,10 +44,17 @@ function shouldShowSubmenu(item: any) {
 }
 
 async function handleLogout() {
-  await authStore.logout()
-  await navigateTo(localePath('login'))
+  authStore.logout()
+  
+  // วิธีที่ 1: ใช้ localePath (ถ้าทำงาน)
+  // await navigateTo(localePath('/login'))
+  
+  // วิธีที่ 2: สร้าง path เอง
+  await navigateTo(`/${locale.value}/login`)
+  
+  // วิธีที่ 3: ใช้ router.push แทน
+  // router.push(`/${locale.value}/login`)
 }
-
 </script>
 
 <template>
@@ -80,7 +67,7 @@ async function handleLogout() {
 
     <!-- Menu -->
     <nav class="space-y-2 flex-1">
-      <div v-for="item in menuItems" :key="item.label">
+      <div v-for="item in menus" :key="item.label">
 
         <!-- Logout Item -->
         <button
@@ -95,7 +82,7 @@ async function handleLogout() {
         <!-- Single Link -->
         <NuxtLink
           v-else-if="!item.children"
-          :to="item.to"
+          :to="localePath(item.to)"
           class="flex items-center gap-3 px-3 py-2 rounded-md relative"
           :class="{
             'bg-blue-50 text-blue-600': isActiveRoute(item.to),
@@ -117,7 +104,7 @@ async function handleLogout() {
           >
             <Icon :icon="item.icon" class="w-5 h-5 text-gray-700" />
             <NuxtLink
-              :to="item.to"
+              :to="localePath(item.to)"
               class="flex-1 text-sm font-medium text-gray-800"
             >
               {{ item.label }}
@@ -137,7 +124,7 @@ async function handleLogout() {
               <NuxtLink
                 v-for="child in item.children"
                 :key="child.label"
-                :to="child.to"
+                :to="localePath(child.to)"
                 class="block py-1 text-sm"
                 :class="{
                   'text-blue-600 font-medium bg-blue-50 rounded': isActiveRoute(child.to),

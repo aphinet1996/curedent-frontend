@@ -1,15 +1,15 @@
 export default [
-  {
-    "label": "Activities",
-    "icon": "mdi:timer-sand",
-    "active": true,
-    "path": "/manage"
-  },
+  // {
+  //   "label": "Activities",
+  //   "icon": "mdi:timer-sand",
+  //   "active": true,
+  //   "path": "/manage"
+  // },
   {
     "label": "Branch",
     "icon": "ph:building-office-light",
-    "active": false,
-    "path": "/manage/branch"
+    "active": true,
+    "path": "/manage"
   },
   {
     "label": "DX/TX",
@@ -24,17 +24,29 @@ export default [
     "path": "/manage/doctor"
   },
   {
-    "label": "Admin",
-    "icon": "octicon:people-24",
+    "label": "Assistant",
+    "icon": "iconoir:user",
     "active": false,
-    "path": "/manage/admin"
+    "path": "/manage/assistant"
   },
+  // {
+  //   "label": "Admin",
+  //   "icon": "octicon:people-24",
+  //   "active": false,
+  //   "path": "/manage/admin"
+  // },
   {
-    "label": "Stock",
-    "icon": "prime:box",
+    "label": "Drug",
+    "icon": "mdi:drugs",
     "active": false,
-    "path": "/manage/stock"
+    "path": "/manage/drug"
   },
+  // {
+  //   "label": "Stock",
+  //   "icon": "prime:box",
+  //   "active": false,
+  //   "path": "/manage/stock"
+  // },
   {
     "label": "Payment",
     "icon": "solar:dollar-linear",

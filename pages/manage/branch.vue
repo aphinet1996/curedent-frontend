@@ -30,14 +30,11 @@ const handleOpenEditForm = (branchId: string) => {
 
 // Handle form submit
 const handleFormSubmit = (branch: Branch) => {
-  console.log('Branch saved:', branch);
-  // Additional logic after branch is saved if needed
 };
 </script>
 
 <template>
   <NuxtLayout name="manage">
-    <!-- Slot ขวาใน subheader -->
     <template #subheader-right>
       <button class="ml-2 rounded-lg flex items-center gap-1 text-sm bg-blue-500 hover:bg-blue-600 text-white px-3 py-1"
         @click="handleOpenAddForm">
@@ -46,10 +43,9 @@ const handleFormSubmit = (branch: Branch) => {
       </button>
     </template>
 
-    <!-- Card แสดงรายชื่อ branch -->
     <CardBranch @open-add-form="handleOpenAddForm" @open-edit-form="handleOpenEditForm" />
 
-    <!-- Modal ฟอร์มเพิ่ม branch -->
-    <FormAddBranch :show="showModal" :mode="modalMode" :branchId="selectedBranchId" @close="showModal = false" @submit="handleFormSubmit" />
+    <FormAddBranch :show="showModal" :mode="modalMode" :branchId="selectedBranchId" @close="showModal = false"
+      @submit="handleFormSubmit" />
   </NuxtLayout>
 </template>

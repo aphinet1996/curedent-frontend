@@ -23,7 +23,6 @@ const fetchBranches = async () => {
   isLoading.value = true;
 
   try {
-    // Fetch branches from the API
     await branchStore.fetchBranches();
     branches.value = branchStore.branches || [];
     error.value = null;
@@ -36,10 +35,8 @@ const fetchBranches = async () => {
   }
 };
 
-// Fetch branches on component mount
 onMounted(fetchBranches);
 
-// Watch branchStore.branches for any changes to update the local branches
 watch(() => branchStore.branches, (newBranches) => {
   branches.value = newBranches || [];
 }, { deep: true });
@@ -115,16 +112,10 @@ const toggleSelection = (branch: Branch) => {
     </div>
 
     <!-- Empty state -->
-    <div v-else-if="branches.length === 0" class="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
+    <div v-else-if="branches.length === 0" class="bg-white shadow-sm rounded-xl p-8 text-center">
       <Icon icon="mdi:store-off" class="w-16 h-16 text-gray-300 mx-auto mb-3" />
       <h3 class="text-gray-700 font-medium mb-1">ยังไม่มีข้อมูล</h3>
       <p class="text-gray-500 text-sm">ไม่พบข้อมูลสาขาในระบบ</p>
-      <button
-        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm inline-flex items-center gap-1 hover:bg-blue-600 transition-colors"
-        @click="$emit('openAddForm')">
-        <Icon icon="mdi:plus" class="w-4 h-4" />
-        เพิ่มสาขาใหม่
-      </button>
     </div>
 
     <!-- Branch cards -->

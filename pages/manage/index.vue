@@ -2,11 +2,13 @@
 definePageMeta({
   layout: 'manage'
 })
-import TableActivities from '~/components/manage/activities/TableActivities.vue'
+// import TableActivities from '~/components/manage/activities/TableActivities.vue'
+import CardBranch from '~/components/manage/branch/CardBranch.vue'
 </script>
 
 <template>
   <div>
-    <TableActivities />
+    <!-- <TableActivities /> -->
+     <CardBranch />
   </div>
 </template>
