@@ -14,26 +14,9 @@ import { useI18n } from 'vue-i18n'
 const route = useRoute()
 const { locale } = useI18n()
 
-// แก้ไข path logic ให้แม่นยำขึ้น
-const pathWithoutLocale = computed(() => {
-  const regex = new RegExp(`^/${locale.value}(/|$)`)
-  return route.path.replace(regex, '/').replace(/\/+/g, '/').replace(/\/$/, '') || '/'
-})
-
 const currentNav = computed(() => {
-  return navItems.find(item => {
-    // ปรับปรุงการเปรียบเทียบ path
-    const itemPath = item.path?.replace(/\/$/, '') || ''
-    const currentPath = pathWithoutLocale.value.replace(/\/$/, '')
-    
-    // เปรียบเทียบแบบตรงตัวก่อน
-    if (itemPath === currentPath) return true
-    
-    // ถ้า currentPath เริ่มต้นด้วย itemPath (สำหรับ nested routes)
-    if (itemPath && currentPath.startsWith(itemPath + '/')) return true
-    
-    return false
-  })
+    const pathWithoutLocale = route.path.replace(`/${locale.value}`, '')
+    return navItems.find(item => item.path === pathWithoutLocale)
 })
 
 onMounted(() => {

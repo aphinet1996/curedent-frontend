@@ -9,12 +9,10 @@ import CardTreatment from '~/components/manage/dxtx/CardTreatment.vue'
 <template>
     <div>
         <div class="flex gap-4">
-            <!-- Left: Table -->
             <div class="w-1/2">
                 <CardDiagnosis />
             </div>
 
-            <!-- Right: Card -->
             <div class="w-1/2">
                 <CardTreatment />
             </div>
