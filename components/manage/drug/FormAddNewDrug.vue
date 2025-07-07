@@ -1644,14 +1644,14 @@ onMounted(() => {
     </div>
 
     <!-- InputModal -->
-    <!-- <InputModal
+    <InputModal
       :show="showInputModal"
       :title="inputModalConfig.title"
       :message="inputModalConfig.message"
       :placeholder="inputModalConfig.placeholder"
       @close="closeInputModal"
       @confirm="handleAddNewOption"
-    /> -->
+    />
   </Modal>
 </template>
 
