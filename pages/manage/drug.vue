@@ -5,13 +5,26 @@ definePageMeta({
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import FormAddNewDrug from '~/components/manage/drug/FormAddNewDrug.vue';
+import TableDrug from '~/components/manage/drug/TableDrug.vue';
+import type { ApiDrug } from '~/types/drug';
 
-const showForm = ref(false)
+const showModal = ref(false)
+const modalMode = ref<'add' | 'edit'>('add')
+const selectedDrugId = ref<string>('')
 
-const handleSubmit = (data: any) => {
-  console.log('Submitted:', data)
-  showForm.value = false
+const handleOpenAddForm = () => {
+    modalMode.value = 'add';
+    selectedDrugId.value = '';
+    showModal.value = true;
+};
+
+const handleOpenEditForm = (drug: ApiDrug) => {
+    console.log('Opening edit form for drug:', drug)
+    selectedDrugId.value = drug.id || (drug as any)._id
+    modalMode.value = 'edit'
+    showModal.value = true
 }
+
 </script>
 
 <template>
@@ -19,13 +32,14 @@ const handleSubmit = (data: any) => {
         <template #subheader-right>
             <button
                 class="ml-2 rounded-lg flex items-center gap-1 text-sm bg-blue-500 hover:bg-blue-600 text-white px-3 py-1"
-                @click="showForm = true">
+                @click="showModal = true">
                 <Icon icon="mdi:add" class="w-4 h-4" />
                 Add
             </button>
         </template>
-        <CardDoctor />
 
-        <FormAddNewDrug :show="showForm" @close="showForm= false" @submit="handleSubmit"/>
+        <TableDrug @edit="handleOpenEditForm" />
+
+        <FormAddNewDrug :show="showModal" :mode="modalMode" :drugId="selectedDrugId" @close="showModal = false" />
     </NuxtLayout>
 </template>

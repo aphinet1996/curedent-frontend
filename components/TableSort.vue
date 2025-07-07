@@ -104,7 +104,6 @@ const getSortIcon = (key: string) => {
             </tbody>
         </table>
 
-        <!-- Pagination -->
         <div v-if="pageCount > 1" class="flex justify-end items-center gap-2 text-sm text-gray-600 px-4 py-3">
             <button @click="currentPage--" :disabled="currentPage === 1" class="px-2 py-1 disabled:opacity-50">
                 Prev
