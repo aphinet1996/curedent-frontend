@@ -1536,7 +1536,7 @@ onMounted(() => {
                 <div><span class="font-medium">หมวดหมู่:</span> {{ form.category }}</div>
                 <div><span class="font-medium">หมวดหมู่ย่อย:</span> {{ form.subcategory }}</div>
                 <div><span class="font-medium">สาขา:</span> {{branchStore.branches.find(b => b.id ===
-                  form.branchId)?.name || '-' }}</div>
+                  form.branchId)?.name || '-'}}</div>
               </div>
             </div>
 
@@ -1607,22 +1607,6 @@ onMounted(() => {
           <Icon icon="mdi:chevron-right" class="w-4 h-4 inline ml-1" />
         </button>
 
-        <!-- <button 
-          v-else
-          @click="handleSubmit"
-          :disabled="isSubmitting"
-          class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm transition-colors disabled:opacity-50 flex items-center gap-2"
-        >
-          <span v-if="isSubmitting">
-            <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-          </span>
-          <Icon v-else icon="mdi:content-save" class="w-4 h-4" />
-          {{ isSubmitting ? 'กำลังบันทึก...' : 'บันทึกข้อมูล' }}
-        </button> -->
-        
         <button v-else @click="handleSubmit" :disabled="isSubmitting"
           class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm transition-colors disabled:opacity-50 flex items-center gap-2">
           <span v-if="isSubmitting">
@@ -1644,14 +1628,8 @@ onMounted(() => {
     </div>
 
     <!-- InputModal -->
-    <InputModal
-      :show="showInputModal"
-      :title="inputModalConfig.title"
-      :message="inputModalConfig.message"
-      :placeholder="inputModalConfig.placeholder"
-      @close="closeInputModal"
-      @confirm="handleAddNewOption"
-    />
+    <InputModal :show="showInputModal" :title="inputModalConfig.title" :message="inputModalConfig.message"
+      :placeholder="inputModalConfig.placeholder" @close="closeInputModal" @confirm="handleAddNewOption" />
   </Modal>
 </template>
 

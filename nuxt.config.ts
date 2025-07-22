@@ -23,7 +23,7 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
     server: {
-      allowedHosts: ['https://1302-27-55-94-39.ngrok-free.app', 'lawrence-registered-juvenile-updates.trycloudflare.com']
+      allowedHosts: ['https://1302-27-55-94-39.ngrok-free.app']
     }
   },
   modules: [
@@ -32,6 +32,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxt/test-utils',
+    '@nuxt/ui',
     '@pinia/nuxt',
     '@nuxtjs/i18n',
     '@nuxtjs/google-fonts',
